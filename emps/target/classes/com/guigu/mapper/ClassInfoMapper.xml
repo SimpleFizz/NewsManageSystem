@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.mapper.ClassInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.pojo.ClassInfo" >
+    <id column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="discipline_id" property="disciplineId" jdbcType="INTEGER" />
+    <result column="syllabus_id" property="syllabusId" jdbcType="INTEGER" />
+    <result column="classroom_id" property="classroomId" jdbcType="INTEGER" />
+    <result column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="class_number" property="classNumber" jdbcType="INTEGER" />
+    <result column="class_start_time" property="classStartTime" jdbcType="TIMESTAMP" />
+    <result column="class_end_time" property="classEndTime" jdbcType="TIMESTAMP" />
+    <result column="class_isuesd" property="classIsuesd" jdbcType="VARCHAR" />
+    <result column="class_state" property="classState" jdbcType="VARCHAR" />
+    <result column="class_desc" property="classDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    class_id, discipline_id, syllabus_id, classroom_id, staff_id, class_name, class_number, 
+    class_start_time, class_end_time, class_isuesd, class_state, class_desc
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.pojo.ClassInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from class_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from class_info
+    where class_id = #{classId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from class_info
+    where class_id = #{classId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.pojo.ClassInfoExample" >
+    delete from class_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.pojo.ClassInfo" >
+    insert into class_info (class_id, discipline_id, syllabus_id, 
+      classroom_id, staff_id, class_name, 
+      class_number, class_start_time, class_end_time, 
+      class_isuesd, class_state, class_desc
+      )
+    values (#{classId,jdbcType=INTEGER}, #{disciplineId,jdbcType=INTEGER}, #{syllabusId,jdbcType=INTEGER}, 
+      #{classroomId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{className,jdbcType=VARCHAR}, 
+      #{classNumber,jdbcType=INTEGER}, #{classStartTime,jdbcType=TIMESTAMP}, #{classEndTime,jdbcType=TIMESTAMP}, 
+      #{classIsuesd,jdbcType=VARCHAR}, #{classState,jdbcType=VARCHAR}, #{classDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.pojo.ClassInfo" >
+    insert into class_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="disciplineId != null" >
+        discipline_id,
+      </if>
+      <if test="syllabusId != null" >
+        syllabus_id,
+      </if>
+      <if test="classroomId != null" >
+        classroom_id,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="classNumber != null" >
+        class_number,
+      </if>
+      <if test="classStartTime != null" >
+        class_start_time,
+      </if>
+      <if test="classEndTime != null" >
+        class_end_time,
+      </if>
+      <if test="classIsuesd != null" >
+        class_isuesd,
+      </if>
+      <if test="classState != null" >
+        class_state,
+      </if>
+      <if test="classDesc != null" >
+        class_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="disciplineId != null" >
+        #{disciplineId,jdbcType=INTEGER},
+      </if>
+      <if test="syllabusId != null" >
+        #{syllabusId,jdbcType=INTEGER},
+      </if>
+      <if test="classroomId != null" >
+        #{classroomId,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classNumber != null" >
+        #{classNumber,jdbcType=INTEGER},
+      </if>
+      <if test="classStartTime != null" >
+        #{classStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classEndTime != null" >
+        #{classEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classIsuesd != null" >
+        #{classIsuesd,jdbcType=VARCHAR},
+      </if>
+      <if test="classState != null" >
+        #{classState,jdbcType=VARCHAR},
+      </if>
+      <if test="classDesc != null" >
+        #{classDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.pojo.ClassInfoExample" resultType="java.lang.Integer" >
+    select count(*) from class_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update class_info
+    <set >
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.disciplineId != null" >
+        discipline_id = #{record.disciplineId,jdbcType=INTEGER},
+      </if>
+      <if test="record.syllabusId != null" >
+        syllabus_id = #{record.syllabusId,jdbcType=INTEGER},
+      </if>
+      <if test="record.classroomId != null" >
+        classroom_id = #{record.classroomId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null" >
+        staff_id = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.className != null" >
+        class_name = #{record.className,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classNumber != null" >
+        class_number = #{record.classNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.classStartTime != null" >
+        class_start_time = #{record.classStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.classEndTime != null" >
+        class_end_time = #{record.classEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.classIsuesd != null" >
+        class_isuesd = #{record.classIsuesd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classState != null" >
+        class_state = #{record.classState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classDesc != null" >
+        class_desc = #{record.classDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update class_info
+    set class_id = #{record.classId,jdbcType=INTEGER},
+      discipline_id = #{record.disciplineId,jdbcType=INTEGER},
+      syllabus_id = #{record.syllabusId,jdbcType=INTEGER},
+      classroom_id = #{record.classroomId,jdbcType=INTEGER},
+      staff_id = #{record.staffId,jdbcType=INTEGER},
+      class_name = #{record.className,jdbcType=VARCHAR},
+      class_number = #{record.classNumber,jdbcType=INTEGER},
+      class_start_time = #{record.classStartTime,jdbcType=TIMESTAMP},
+      class_end_time = #{record.classEndTime,jdbcType=TIMESTAMP},
+      class_isuesd = #{record.classIsuesd,jdbcType=VARCHAR},
+      class_state = #{record.classState,jdbcType=VARCHAR},
+      class_desc = #{record.classDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.pojo.ClassInfo" >
+    update class_info
+    <set >
+      <if test="disciplineId != null" >
+        discipline_id = #{disciplineId,jdbcType=INTEGER},
+      </if>
+      <if test="syllabusId != null" >
+        syllabus_id = #{syllabusId,jdbcType=INTEGER},
+      </if>
+      <if test="classroomId != null" >
+        classroom_id = #{classroomId,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classNumber != null" >
+        class_number = #{classNumber,jdbcType=INTEGER},
+      </if>
+      <if test="classStartTime != null" >
+        class_start_time = #{classStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classEndTime != null" >
+        class_end_time = #{classEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classIsuesd != null" >
+        class_isuesd = #{classIsuesd,jdbcType=VARCHAR},
+      </if>
+      <if test="classState != null" >
+        class_state = #{classState,jdbcType=VARCHAR},
+      </if>
+      <if test="classDesc != null" >
+        class_desc = #{classDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where class_id = #{classId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.pojo.ClassInfo" >
+    update class_info
+    set discipline_id = #{disciplineId,jdbcType=INTEGER},
+      syllabus_id = #{syllabusId,jdbcType=INTEGER},
+      classroom_id = #{classroomId,jdbcType=INTEGER},
+      staff_id = #{staffId,jdbcType=INTEGER},
+      class_name = #{className,jdbcType=VARCHAR},
+      class_number = #{classNumber,jdbcType=INTEGER},
+      class_start_time = #{classStartTime,jdbcType=TIMESTAMP},
+      class_end_time = #{classEndTime,jdbcType=TIMESTAMP},
+      class_isuesd = #{classIsuesd,jdbcType=VARCHAR},
+      class_state = #{classState,jdbcType=VARCHAR},
+      class_desc = #{classDesc,jdbcType=VARCHAR}
+    where class_id = #{classId,jdbcType=INTEGER}
+  </update>
+</mapper>

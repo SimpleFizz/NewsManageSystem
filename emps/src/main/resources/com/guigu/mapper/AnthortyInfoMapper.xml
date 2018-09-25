@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.mapper.AnthortyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.pojo.AnthortyInfo" >
+    <id column="anthorty_id" property="anthortyId" jdbcType="INTEGER" />
+    <result column="anthorty_pid" property="anthortyPid" jdbcType="INTEGER" />
+    <result column="anthorty_name" property="anthortyName" jdbcType="VARCHAR" />
+    <result column="anthorty_desc" property="anthortyDesc" jdbcType="VARCHAR" />
+    <result column="anthorty_url" property="anthortyUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    anthorty_id, anthorty_pid, anthorty_name, anthorty_desc, anthorty_url
+  </sql>
+  <select id="getByRoleId"  parameterType="int"  resultMap="BaseResultMap">
+     SELECT  a.*  FROM anthorty_info  a,role_anthority_info b
+	WHERE a.anthorty_id  = b.anthorty_id  AND b.role_id = #{roleId}
+  </select>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.pojo.AnthortyInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from anthorty_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from anthorty_info
+    where anthorty_id = #{anthortyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from anthorty_info
+    where anthorty_id = #{anthortyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.pojo.AnthortyInfoExample" >
+    delete from anthorty_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.pojo.AnthortyInfo" >
+    insert into anthorty_info (anthorty_id, anthorty_pid, anthorty_name, 
+      anthorty_desc, anthorty_url)
+    values (#{anthortyId,jdbcType=INTEGER}, #{anthortyPid,jdbcType=INTEGER}, #{anthortyName,jdbcType=VARCHAR}, 
+      #{anthortyDesc,jdbcType=VARCHAR}, #{anthortyUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.pojo.AnthortyInfo" >
+    insert into anthorty_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="anthortyId != null" >
+        anthorty_id,
+      </if>
+      <if test="anthortyPid != null" >
+        anthorty_pid,
+      </if>
+      <if test="anthortyName != null" >
+        anthorty_name,
+      </if>
+      <if test="anthortyDesc != null" >
+        anthorty_desc,
+      </if>
+      <if test="anthortyUrl != null" >
+        anthorty_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="anthortyId != null" >
+        #{anthortyId,jdbcType=INTEGER},
+      </if>
+      <if test="anthortyPid != null" >
+        #{anthortyPid,jdbcType=INTEGER},
+      </if>
+      <if test="anthortyName != null" >
+        #{anthortyName,jdbcType=VARCHAR},
+      </if>
+      <if test="anthortyDesc != null" >
+        #{anthortyDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="anthortyUrl != null" >
+        #{anthortyUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.pojo.AnthortyInfoExample" resultType="java.lang.Integer" >
+    select count(*) from anthorty_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update anthorty_info
+    <set >
+      <if test="record.anthortyId != null" >
+        anthorty_id = #{record.anthortyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.anthortyPid != null" >
+        anthorty_pid = #{record.anthortyPid,jdbcType=INTEGER},
+      </if>
+      <if test="record.anthortyName != null" >
+        anthorty_name = #{record.anthortyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.anthortyDesc != null" >
+        anthorty_desc = #{record.anthortyDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.anthortyUrl != null" >
+        anthorty_url = #{record.anthortyUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update anthorty_info
+    set anthorty_id = #{record.anthortyId,jdbcType=INTEGER},
+      anthorty_pid = #{record.anthortyPid,jdbcType=INTEGER},
+      anthorty_name = #{record.anthortyName,jdbcType=VARCHAR},
+      anthorty_desc = #{record.anthortyDesc,jdbcType=VARCHAR},
+      anthorty_url = #{record.anthortyUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.pojo.AnthortyInfo" >
+    update anthorty_info
+    <set >
+      <if test="anthortyPid != null" >
+        anthorty_pid = #{anthortyPid,jdbcType=INTEGER},
+      </if>
+      <if test="anthortyName != null" >
+        anthorty_name = #{anthortyName,jdbcType=VARCHAR},
+      </if>
+      <if test="anthortyDesc != null" >
+        anthorty_desc = #{anthortyDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="anthortyUrl != null" >
+        anthorty_url = #{anthortyUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where anthorty_id = #{anthortyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.pojo.AnthortyInfo" >
+    update anthorty_info
+    set anthorty_pid = #{anthortyPid,jdbcType=INTEGER},
+      anthorty_name = #{anthortyName,jdbcType=VARCHAR},
+      anthorty_desc = #{anthortyDesc,jdbcType=VARCHAR},
+      anthorty_url = #{anthortyUrl,jdbcType=VARCHAR}
+    where anthorty_id = #{anthortyId,jdbcType=INTEGER}
+  </update>
+</mapper>

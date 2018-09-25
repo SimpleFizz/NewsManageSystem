@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.mapper.RoleAnthorityInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.pojo.RoleAnthorityInfo" >
+    <id column="role_anthority_id" property="roleAnthorityId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="anthorty_id" property="anthortyId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    role_anthority_id, role_id, anthorty_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.pojo.RoleAnthorityInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from role_anthority_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_anthority_info
+    where role_anthority_id = #{roleAnthorityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role_anthority_info
+    where role_anthority_id = #{roleAnthorityId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.pojo.RoleAnthorityInfoExample" >
+    delete from role_anthority_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.pojo.RoleAnthorityInfo" >
+    insert into role_anthority_info (role_anthority_id, role_id, anthorty_id
+      )
+    values (#{roleAnthorityId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{anthortyId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.pojo.RoleAnthorityInfo" >
+    insert into role_anthority_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleAnthorityId != null" >
+        role_anthority_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="anthortyId != null" >
+        anthorty_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleAnthorityId != null" >
+        #{roleAnthorityId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="anthortyId != null" >
+        #{anthortyId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.pojo.RoleAnthorityInfoExample" resultType="java.lang.Integer" >
+    select count(*) from role_anthority_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update role_anthority_info
+    <set >
+      <if test="record.roleAnthorityId != null" >
+        role_anthority_id = #{record.roleAnthorityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleId != null" >
+        role_id = #{record.roleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.anthortyId != null" >
+        anthorty_id = #{record.anthortyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update role_anthority_info
+    set role_anthority_id = #{record.roleAnthorityId,jdbcType=INTEGER},
+      role_id = #{record.roleId,jdbcType=INTEGER},
+      anthorty_id = #{record.anthortyId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.pojo.RoleAnthorityInfo" >
+    update role_anthority_info
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="anthortyId != null" >
+        anthorty_id = #{anthortyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where role_anthority_id = #{roleAnthorityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.pojo.RoleAnthorityInfo" >
+    update role_anthority_info
+    set role_id = #{roleId,jdbcType=INTEGER},
+      anthorty_id = #{anthortyId,jdbcType=INTEGER}
+    where role_anthority_id = #{roleAnthorityId,jdbcType=INTEGER}
+  </update>
+</mapper>

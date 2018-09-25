@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.mapper.StudentInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.pojo.StudentInfo" >
+    <id column="student_id" property="studentId" jdbcType="INTEGER" />
+    <result column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <result column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="student_sex" property="studentSex" jdbcType="VARCHAR" />
+    <result column="student_age" property="studentAge" jdbcType="INTEGER" />
+    <result column="student_tellphone" property="studentTellphone" jdbcType="VARCHAR" />
+    <result column="student_email" property="studentEmail" jdbcType="VARCHAR" />
+    <result column="student_idcard" property="studentIdcard" jdbcType="VARCHAR" />
+    <result column="student_address" property="studentAddress" jdbcType="VARCHAR" />
+    <result column="student_birthday" property="studentBirthday" jdbcType="VARCHAR" />
+    <result column="student_school" property="studentSchool" jdbcType="VARCHAR" />
+    <result column="student_qq" property="studentQq" jdbcType="VARCHAR" />
+    <result column="student_parents_name" property="studentParentsName" jdbcType="VARCHAR" />
+    <result column="student_parents_phone" property="studentParentsPhone" jdbcType="VARCHAR" />
+    <result column="student_pro" property="studentPro" jdbcType="VARCHAR" />
+    <result column="student_pro_city" property="studentProCity" jdbcType="VARCHAR" />
+    <result column="student_type" property="studentType" jdbcType="VARCHAR" />
+    <result column="student_ispay" property="studentIspay" jdbcType="VARCHAR" />
+    <result column="student_sate" property="studentSate" jdbcType="INTEGER" />
+    <result column="student_mark" property="studentMark" jdbcType="VARCHAR" />
+    <result column="student_desc" property="studentDesc" jdbcType="VARCHAR" />
+    <result column="student_number" property="studentNumber" jdbcType="VARCHAR" />
+    <result column="student_password" property="studentPassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    student_id, staff_id, class_id, student_name, student_sex, student_age, student_tellphone, 
+    student_email, student_idcard, student_address, student_birthday, student_school, 
+    student_qq, student_parents_name, student_parents_phone, student_pro, student_pro_city, 
+    student_type, student_ispay, student_sate, student_mark, student_desc, student_number, 
+    student_password
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.pojo.StudentInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student_info
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student_info
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.pojo.StudentInfoExample" >
+    delete from student_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.pojo.StudentInfo" >
+    insert into student_info (student_id, staff_id, class_id, 
+      student_name, student_sex, student_age, 
+      student_tellphone, student_email, student_idcard, 
+      student_address, student_birthday, student_school, 
+      student_qq, student_parents_name, student_parents_phone, 
+      student_pro, student_pro_city, student_type, 
+      student_ispay, student_sate, student_mark, 
+      student_desc, student_number, student_password
+      )
+    values (#{studentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, 
+      #{studentName,jdbcType=VARCHAR}, #{studentSex,jdbcType=VARCHAR}, #{studentAge,jdbcType=INTEGER}, 
+      #{studentTellphone,jdbcType=VARCHAR}, #{studentEmail,jdbcType=VARCHAR}, #{studentIdcard,jdbcType=VARCHAR}, 
+      #{studentAddress,jdbcType=VARCHAR}, #{studentBirthday,jdbcType=VARCHAR}, #{studentSchool,jdbcType=VARCHAR}, 
+      #{studentQq,jdbcType=VARCHAR}, #{studentParentsName,jdbcType=VARCHAR}, #{studentParentsPhone,jdbcType=VARCHAR}, 
+      #{studentPro,jdbcType=VARCHAR}, #{studentProCity,jdbcType=VARCHAR}, #{studentType,jdbcType=VARCHAR}, 
+      #{studentIspay,jdbcType=VARCHAR}, #{studentSate,jdbcType=INTEGER}, #{studentMark,jdbcType=VARCHAR}, 
+      #{studentDesc,jdbcType=VARCHAR}, #{studentNumber,jdbcType=VARCHAR}, #{studentPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.pojo.StudentInfo" >
+    insert into student_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="studentSex != null" >
+        student_sex,
+      </if>
+      <if test="studentAge != null" >
+        student_age,
+      </if>
+      <if test="studentTellphone != null" >
+        student_tellphone,
+      </if>
+      <if test="studentEmail != null" >
+        student_email,
+      </if>
+      <if test="studentIdcard != null" >
+        student_idcard,
+      </if>
+      <if test="studentAddress != null" >
+        student_address,
+      </if>
+      <if test="studentBirthday != null" >
+        student_birthday,
+      </if>
+      <if test="studentSchool != null" >
+        student_school,
+      </if>
+      <if test="studentQq != null" >
+        student_qq,
+      </if>
+      <if test="studentParentsName != null" >
+        student_parents_name,
+      </if>
+      <if test="studentParentsPhone != null" >
+        student_parents_phone,
+      </if>
+      <if test="studentPro != null" >
+        student_pro,
+      </if>
+      <if test="studentProCity != null" >
+        student_pro_city,
+      </if>
+      <if test="studentType != null" >
+        student_type,
+      </if>
+      <if test="studentIspay != null" >
+        student_ispay,
+      </if>
+      <if test="studentSate != null" >
+        student_sate,
+      </if>
+      <if test="studentMark != null" >
+        student_mark,
+      </if>
+      <if test="studentDesc != null" >
+        student_desc,
+      </if>
+      <if test="studentNumber != null" >
+        student_number,
+      </if>
+      <if test="studentPassword != null" >
+        student_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSex != null" >
+        #{studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="studentAge != null" >
+        #{studentAge,jdbcType=INTEGER},
+      </if>
+      <if test="studentTellphone != null" >
+        #{studentTellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="studentEmail != null" >
+        #{studentEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="studentIdcard != null" >
+        #{studentIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="studentAddress != null" >
+        #{studentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="studentBirthday != null" >
+        #{studentBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSchool != null" >
+        #{studentSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="studentQq != null" >
+        #{studentQq,jdbcType=VARCHAR},
+      </if>
+      <if test="studentParentsName != null" >
+        #{studentParentsName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentParentsPhone != null" >
+        #{studentParentsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPro != null" >
+        #{studentPro,jdbcType=VARCHAR},
+      </if>
+      <if test="studentProCity != null" >
+        #{studentProCity,jdbcType=VARCHAR},
+      </if>
+      <if test="studentType != null" >
+        #{studentType,jdbcType=VARCHAR},
+      </if>
+      <if test="studentIspay != null" >
+        #{studentIspay,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSate != null" >
+        #{studentSate,jdbcType=INTEGER},
+      </if>
+      <if test="studentMark != null" >
+        #{studentMark,jdbcType=VARCHAR},
+      </if>
+      <if test="studentDesc != null" >
+        #{studentDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNumber != null" >
+        #{studentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPassword != null" >
+        #{studentPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.pojo.StudentInfoExample" resultType="java.lang.Integer" >
+    select count(*) from student_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update student_info
+    <set >
+      <if test="record.studentId != null" >
+        student_id = #{record.studentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null" >
+        staff_id = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentName != null" >
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentSex != null" >
+        student_sex = #{record.studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentAge != null" >
+        student_age = #{record.studentAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentTellphone != null" >
+        student_tellphone = #{record.studentTellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentEmail != null" >
+        student_email = #{record.studentEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentIdcard != null" >
+        student_idcard = #{record.studentIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentAddress != null" >
+        student_address = #{record.studentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentBirthday != null" >
+        student_birthday = #{record.studentBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentSchool != null" >
+        student_school = #{record.studentSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentQq != null" >
+        student_qq = #{record.studentQq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentParentsName != null" >
+        student_parents_name = #{record.studentParentsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentParentsPhone != null" >
+        student_parents_phone = #{record.studentParentsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentPro != null" >
+        student_pro = #{record.studentPro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentProCity != null" >
+        student_pro_city = #{record.studentProCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentType != null" >
+        student_type = #{record.studentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentIspay != null" >
+        student_ispay = #{record.studentIspay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentSate != null" >
+        student_sate = #{record.studentSate,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentMark != null" >
+        student_mark = #{record.studentMark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentDesc != null" >
+        student_desc = #{record.studentDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentNumber != null" >
+        student_number = #{record.studentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentPassword != null" >
+        student_password = #{record.studentPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update student_info
+    set student_id = #{record.studentId,jdbcType=INTEGER},
+      staff_id = #{record.staffId,jdbcType=INTEGER},
+      class_id = #{record.classId,jdbcType=INTEGER},
+      student_name = #{record.studentName,jdbcType=VARCHAR},
+      student_sex = #{record.studentSex,jdbcType=VARCHAR},
+      student_age = #{record.studentAge,jdbcType=INTEGER},
+      student_tellphone = #{record.studentTellphone,jdbcType=VARCHAR},
+      student_email = #{record.studentEmail,jdbcType=VARCHAR},
+      student_idcard = #{record.studentIdcard,jdbcType=VARCHAR},
+      student_address = #{record.studentAddress,jdbcType=VARCHAR},
+      student_birthday = #{record.studentBirthday,jdbcType=VARCHAR},
+      student_school = #{record.studentSchool,jdbcType=VARCHAR},
+      student_qq = #{record.studentQq,jdbcType=VARCHAR},
+      student_parents_name = #{record.studentParentsName,jdbcType=VARCHAR},
+      student_parents_phone = #{record.studentParentsPhone,jdbcType=VARCHAR},
+      student_pro = #{record.studentPro,jdbcType=VARCHAR},
+      student_pro_city = #{record.studentProCity,jdbcType=VARCHAR},
+      student_type = #{record.studentType,jdbcType=VARCHAR},
+      student_ispay = #{record.studentIspay,jdbcType=VARCHAR},
+      student_sate = #{record.studentSate,jdbcType=INTEGER},
+      student_mark = #{record.studentMark,jdbcType=VARCHAR},
+      student_desc = #{record.studentDesc,jdbcType=VARCHAR},
+      student_number = #{record.studentNumber,jdbcType=VARCHAR},
+      student_password = #{record.studentPassword,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.pojo.StudentInfo" >
+    update student_info
+    <set >
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null" >
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSex != null" >
+        student_sex = #{studentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="studentAge != null" >
+        student_age = #{studentAge,jdbcType=INTEGER},
+      </if>
+      <if test="studentTellphone != null" >
+        student_tellphone = #{studentTellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="studentEmail != null" >
+        student_email = #{studentEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="studentIdcard != null" >
+        student_idcard = #{studentIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="studentAddress != null" >
+        student_address = #{studentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="studentBirthday != null" >
+        student_birthday = #{studentBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSchool != null" >
+        student_school = #{studentSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="studentQq != null" >
+        student_qq = #{studentQq,jdbcType=VARCHAR},
+      </if>
+      <if test="studentParentsName != null" >
+        student_parents_name = #{studentParentsName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentParentsPhone != null" >
+        student_parents_phone = #{studentParentsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPro != null" >
+        student_pro = #{studentPro,jdbcType=VARCHAR},
+      </if>
+      <if test="studentProCity != null" >
+        student_pro_city = #{studentProCity,jdbcType=VARCHAR},
+      </if>
+      <if test="studentType != null" >
+        student_type = #{studentType,jdbcType=VARCHAR},
+      </if>
+      <if test="studentIspay != null" >
+        student_ispay = #{studentIspay,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSate != null" >
+        student_sate = #{studentSate,jdbcType=INTEGER},
+      </if>
+      <if test="studentMark != null" >
+        student_mark = #{studentMark,jdbcType=VARCHAR},
+      </if>
+      <if test="studentDesc != null" >
+        student_desc = #{studentDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="studentNumber != null" >
+        student_number = #{studentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPassword != null" >
+        student_password = #{studentPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.pojo.StudentInfo" >
+    update student_info
+    set staff_id = #{staffId,jdbcType=INTEGER},
+      class_id = #{classId,jdbcType=INTEGER},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      student_sex = #{studentSex,jdbcType=VARCHAR},
+      student_age = #{studentAge,jdbcType=INTEGER},
+      student_tellphone = #{studentTellphone,jdbcType=VARCHAR},
+      student_email = #{studentEmail,jdbcType=VARCHAR},
+      student_idcard = #{studentIdcard,jdbcType=VARCHAR},
+      student_address = #{studentAddress,jdbcType=VARCHAR},
+      student_birthday = #{studentBirthday,jdbcType=VARCHAR},
+      student_school = #{studentSchool,jdbcType=VARCHAR},
+      student_qq = #{studentQq,jdbcType=VARCHAR},
+      student_parents_name = #{studentParentsName,jdbcType=VARCHAR},
+      student_parents_phone = #{studentParentsPhone,jdbcType=VARCHAR},
+      student_pro = #{studentPro,jdbcType=VARCHAR},
+      student_pro_city = #{studentProCity,jdbcType=VARCHAR},
+      student_type = #{studentType,jdbcType=VARCHAR},
+      student_ispay = #{studentIspay,jdbcType=VARCHAR},
+      student_sate = #{studentSate,jdbcType=INTEGER},
+      student_mark = #{studentMark,jdbcType=VARCHAR},
+      student_desc = #{studentDesc,jdbcType=VARCHAR},
+      student_number = #{studentNumber,jdbcType=VARCHAR},
+      student_password = #{studentPassword,jdbcType=VARCHAR}
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </update>
+</mapper>

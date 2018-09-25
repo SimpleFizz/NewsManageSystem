@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.mapper.DisciplineInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.pojo.DisciplineInfo" >
+    <id column="discipline_id" property="disciplineId" jdbcType="INTEGER" />
+    <result column="discipline_name" property="disciplineName" jdbcType="VARCHAR" />
+    <result column="discipline_tuition" property="disciplineTuition" jdbcType="INTEGER" />
+    <result column="discipline_bring" property="disciplineBring" jdbcType="INTEGER" />
+    <result column="discipline_desc" property="disciplineDesc" jdbcType="VARCHAR" />
+    <result column="discipline_isuesd" property="disciplineIsuesd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    discipline_id, discipline_name, discipline_tuition, discipline_bring, discipline_desc, 
+    discipline_isuesd
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.pojo.DisciplineInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from discipline_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from discipline_info
+    where discipline_id = #{disciplineId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from discipline_info
+    where discipline_id = #{disciplineId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.pojo.DisciplineInfoExample" >
+    delete from discipline_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.pojo.DisciplineInfo" >
+    insert into discipline_info (discipline_id, discipline_name, discipline_tuition, 
+      discipline_bring, discipline_desc, discipline_isuesd
+      )
+    values (#{disciplineId,jdbcType=INTEGER}, #{disciplineName,jdbcType=VARCHAR}, #{disciplineTuition,jdbcType=INTEGER}, 
+      #{disciplineBring,jdbcType=INTEGER}, #{disciplineDesc,jdbcType=VARCHAR}, #{disciplineIsuesd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.pojo.DisciplineInfo" >
+    insert into discipline_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="disciplineId != null" >
+        discipline_id,
+      </if>
+      <if test="disciplineName != null" >
+        discipline_name,
+      </if>
+      <if test="disciplineTuition != null" >
+        discipline_tuition,
+      </if>
+      <if test="disciplineBring != null" >
+        discipline_bring,
+      </if>
+      <if test="disciplineDesc != null" >
+        discipline_desc,
+      </if>
+      <if test="disciplineIsuesd != null" >
+        discipline_isuesd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="disciplineId != null" >
+        #{disciplineId,jdbcType=INTEGER},
+      </if>
+      <if test="disciplineName != null" >
+        #{disciplineName,jdbcType=VARCHAR},
+      </if>
+      <if test="disciplineTuition != null" >
+        #{disciplineTuition,jdbcType=INTEGER},
+      </if>
+      <if test="disciplineBring != null" >
+        #{disciplineBring,jdbcType=INTEGER},
+      </if>
+      <if test="disciplineDesc != null" >
+        #{disciplineDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="disciplineIsuesd != null" >
+        #{disciplineIsuesd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.pojo.DisciplineInfoExample" resultType="java.lang.Integer" >
+    select count(*) from discipline_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update discipline_info
+    <set >
+      <if test="record.disciplineId != null" >
+        discipline_id = #{record.disciplineId,jdbcType=INTEGER},
+      </if>
+      <if test="record.disciplineName != null" >
+        discipline_name = #{record.disciplineName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disciplineTuition != null" >
+        discipline_tuition = #{record.disciplineTuition,jdbcType=INTEGER},
+      </if>
+      <if test="record.disciplineBring != null" >
+        discipline_bring = #{record.disciplineBring,jdbcType=INTEGER},
+      </if>
+      <if test="record.disciplineDesc != null" >
+        discipline_desc = #{record.disciplineDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disciplineIsuesd != null" >
+        discipline_isuesd = #{record.disciplineIsuesd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update discipline_info
+    set discipline_id = #{record.disciplineId,jdbcType=INTEGER},
+      discipline_name = #{record.disciplineName,jdbcType=VARCHAR},
+      discipline_tuition = #{record.disciplineTuition,jdbcType=INTEGER},
+      discipline_bring = #{record.disciplineBring,jdbcType=INTEGER},
+      discipline_desc = #{record.disciplineDesc,jdbcType=VARCHAR},
+      discipline_isuesd = #{record.disciplineIsuesd,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.pojo.DisciplineInfo" >
+    update discipline_info
+    <set >
+      <if test="disciplineName != null" >
+        discipline_name = #{disciplineName,jdbcType=VARCHAR},
+      </if>
+      <if test="disciplineTuition != null" >
+        discipline_tuition = #{disciplineTuition,jdbcType=INTEGER},
+      </if>
+      <if test="disciplineBring != null" >
+        discipline_bring = #{disciplineBring,jdbcType=INTEGER},
+      </if>
+      <if test="disciplineDesc != null" >
+        discipline_desc = #{disciplineDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="disciplineIsuesd != null" >
+        discipline_isuesd = #{disciplineIsuesd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where discipline_id = #{disciplineId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.pojo.DisciplineInfo" >
+    update discipline_info
+    set discipline_name = #{disciplineName,jdbcType=VARCHAR},
+      discipline_tuition = #{disciplineTuition,jdbcType=INTEGER},
+      discipline_bring = #{disciplineBring,jdbcType=INTEGER},
+      discipline_desc = #{disciplineDesc,jdbcType=VARCHAR},
+      discipline_isuesd = #{disciplineIsuesd,jdbcType=VARCHAR}
+    where discipline_id = #{disciplineId,jdbcType=INTEGER}
+  </update>
+</mapper>

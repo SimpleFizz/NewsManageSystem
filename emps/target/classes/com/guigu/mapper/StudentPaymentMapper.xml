@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.mapper.StudentPaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.pojo.StudentPayment" >
+    <id column="payment_id" property="paymentId" jdbcType="INTEGER" />
+    <result column="student_id" property="studentId" jdbcType="INTEGER" />
+    <result column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <result column="payment_situation" property="paymentSituation" jdbcType="VARCHAR" />
+    <result column="payment_method" property="paymentMethod" jdbcType="INTEGER" />
+    <result column="payment_time" property="paymentTime" jdbcType="TIMESTAMP" />
+    <result column="discount_amount" property="discountAmount" jdbcType="DOUBLE" />
+    <result column="should_amount" property="shouldAmount" jdbcType="DOUBLE" />
+    <result column="real_amount" property="realAmount" jdbcType="DOUBLE" />
+    <result column="debt_amount" property="debtAmount" jdbcType="DOUBLE" />
+    <result column="payment_remark" property="paymentRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    payment_id, student_id, staff_id, payment_situation, payment_method, payment_time, 
+    discount_amount, should_amount, real_amount, debt_amount, payment_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.pojo.StudentPaymentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student_payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student_payment
+    where payment_id = #{paymentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student_payment
+    where payment_id = #{paymentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.pojo.StudentPaymentExample" >
+    delete from student_payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.pojo.StudentPayment" >
+    insert into student_payment (payment_id, student_id, staff_id, 
+      payment_situation, payment_method, payment_time, 
+      discount_amount, should_amount, real_amount, 
+      debt_amount, payment_remark)
+    values (#{paymentId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, 
+      #{paymentSituation,jdbcType=VARCHAR}, #{paymentMethod,jdbcType=INTEGER}, #{paymentTime,jdbcType=TIMESTAMP}, 
+      #{discountAmount,jdbcType=DOUBLE}, #{shouldAmount,jdbcType=DOUBLE}, #{realAmount,jdbcType=DOUBLE}, 
+      #{debtAmount,jdbcType=DOUBLE}, #{paymentRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.pojo.StudentPayment" >
+    insert into student_payment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paymentId != null" >
+        payment_id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="paymentSituation != null" >
+        payment_situation,
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method,
+      </if>
+      <if test="paymentTime != null" >
+        payment_time,
+      </if>
+      <if test="discountAmount != null" >
+        discount_amount,
+      </if>
+      <if test="shouldAmount != null" >
+        should_amount,
+      </if>
+      <if test="realAmount != null" >
+        real_amount,
+      </if>
+      <if test="debtAmount != null" >
+        debt_amount,
+      </if>
+      <if test="paymentRemark != null" >
+        payment_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paymentId != null" >
+        #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentSituation != null" >
+        #{paymentSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentMethod != null" >
+        #{paymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="paymentTime != null" >
+        #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="discountAmount != null" >
+        #{discountAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="shouldAmount != null" >
+        #{shouldAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="realAmount != null" >
+        #{realAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="debtAmount != null" >
+        #{debtAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="paymentRemark != null" >
+        #{paymentRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.pojo.StudentPaymentExample" resultType="java.lang.Integer" >
+    select count(*) from student_payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update student_payment
+    <set >
+      <if test="record.paymentId != null" >
+        payment_id = #{record.paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentId != null" >
+        student_id = #{record.studentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null" >
+        staff_id = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentSituation != null" >
+        payment_situation = #{record.paymentSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentMethod != null" >
+        payment_method = #{record.paymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentTime != null" >
+        payment_time = #{record.paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.discountAmount != null" >
+        discount_amount = #{record.discountAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.shouldAmount != null" >
+        should_amount = #{record.shouldAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.realAmount != null" >
+        real_amount = #{record.realAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.debtAmount != null" >
+        debt_amount = #{record.debtAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.paymentRemark != null" >
+        payment_remark = #{record.paymentRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update student_payment
+    set payment_id = #{record.paymentId,jdbcType=INTEGER},
+      student_id = #{record.studentId,jdbcType=INTEGER},
+      staff_id = #{record.staffId,jdbcType=INTEGER},
+      payment_situation = #{record.paymentSituation,jdbcType=VARCHAR},
+      payment_method = #{record.paymentMethod,jdbcType=INTEGER},
+      payment_time = #{record.paymentTime,jdbcType=TIMESTAMP},
+      discount_amount = #{record.discountAmount,jdbcType=DOUBLE},
+      should_amount = #{record.shouldAmount,jdbcType=DOUBLE},
+      real_amount = #{record.realAmount,jdbcType=DOUBLE},
+      debt_amount = #{record.debtAmount,jdbcType=DOUBLE},
+      payment_remark = #{record.paymentRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.pojo.StudentPayment" >
+    update student_payment
+    <set >
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentSituation != null" >
+        payment_situation = #{paymentSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method = #{paymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="paymentTime != null" >
+        payment_time = #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="discountAmount != null" >
+        discount_amount = #{discountAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="shouldAmount != null" >
+        should_amount = #{shouldAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="realAmount != null" >
+        real_amount = #{realAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="debtAmount != null" >
+        debt_amount = #{debtAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="paymentRemark != null" >
+        payment_remark = #{paymentRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where payment_id = #{paymentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.pojo.StudentPayment" >
+    update student_payment
+    set student_id = #{studentId,jdbcType=INTEGER},
+      staff_id = #{staffId,jdbcType=INTEGER},
+      payment_situation = #{paymentSituation,jdbcType=VARCHAR},
+      payment_method = #{paymentMethod,jdbcType=INTEGER},
+      payment_time = #{paymentTime,jdbcType=TIMESTAMP},
+      discount_amount = #{discountAmount,jdbcType=DOUBLE},
+      should_amount = #{shouldAmount,jdbcType=DOUBLE},
+      real_amount = #{realAmount,jdbcType=DOUBLE},
+      debt_amount = #{debtAmount,jdbcType=DOUBLE},
+      payment_remark = #{paymentRemark,jdbcType=VARCHAR}
+    where payment_id = #{paymentId,jdbcType=INTEGER}
+  </update>
+</mapper>

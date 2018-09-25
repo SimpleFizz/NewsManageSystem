@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.mapper.StaffSalaryMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.pojo.StaffSalary" >
+    <id column="staff_salary_id" property="staffSalaryId" jdbcType="INTEGER" />
+    <result column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <result column="sta_staff_id" property="staStaffId" jdbcType="INTEGER" />
+    <result column="total_salary" property="totalSalary" jdbcType="DOUBLE" />
+    <result column="deduct_salary" property="deductSalary" jdbcType="DOUBLE" />
+    <result column="real_salary" property="realSalary" jdbcType="DOUBLE" />
+    <result column="is_uesd" property="isUesd" jdbcType="VARCHAR" />
+    <result column="staff_salary_time" property="staffSalaryTime" jdbcType="TIMESTAMP" />
+    <result column="staff_remark" property="staffRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    staff_salary_id, staff_id, sta_staff_id, total_salary, deduct_salary, real_salary, 
+    is_uesd, staff_salary_time, staff_remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.pojo.StaffSalaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from staff_salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <select id="getStaffSalaryList" resultMap="BaseResultMap"  parameterType="com.guigu.pojo.Page" >
+ 	 select * from staff_salary limit #{start} ,#{pageSize}
+  	      
+  
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from staff_salary
+    where staff_salary_id = #{staffSalaryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from staff_salary
+    where staff_salary_id = #{staffSalaryId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.pojo.StaffSalaryExample" >
+    delete from staff_salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.pojo.StaffSalary" >
+    insert into staff_salary (staff_salary_id, staff_id, sta_staff_id, 
+      total_salary, deduct_salary, real_salary, 
+      is_uesd, staff_salary_time, staff_remark
+      )
+    values (#{staffSalaryId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{staStaffId,jdbcType=INTEGER}, 
+      #{totalSalary,jdbcType=DOUBLE}, #{deductSalary,jdbcType=DOUBLE}, #{realSalary,jdbcType=DOUBLE}, 
+      #{isUesd,jdbcType=VARCHAR}, #{staffSalaryTime,jdbcType=TIMESTAMP}, #{staffRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.pojo.StaffSalary" >
+    insert into staff_salary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffSalaryId != null" >
+        staff_salary_id,
+      </if>
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="staStaffId != null" >
+        sta_staff_id,
+      </if>
+      <if test="totalSalary != null" >
+        total_salary,
+      </if>
+      <if test="deductSalary != null" >
+        deduct_salary,
+      </if>
+      <if test="realSalary != null" >
+        real_salary,
+      </if>
+      <if test="isUesd != null" >
+        is_uesd,
+      </if>
+      <if test="staffSalaryTime != null" >
+        staff_salary_time,
+      </if>
+      <if test="staffRemark != null" >
+        staff_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffSalaryId != null" >
+        #{staffSalaryId,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="staStaffId != null" >
+        #{staStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="totalSalary != null" >
+        #{totalSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="deductSalary != null" >
+        #{deductSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="realSalary != null" >
+        #{realSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="isUesd != null" >
+        #{isUesd,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSalaryTime != null" >
+        #{staffSalaryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="staffRemark != null" >
+        #{staffRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.pojo.StaffSalaryExample" resultType="java.lang.Integer" >
+    select count(*) from staff_salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update staff_salary
+    <set >
+      <if test="record.staffSalaryId != null" >
+        staff_salary_id = #{record.staffSalaryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null" >
+        staff_id = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staStaffId != null" >
+        sta_staff_id = #{record.staStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalSalary != null" >
+        total_salary = #{record.totalSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="record.deductSalary != null" >
+        deduct_salary = #{record.deductSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="record.realSalary != null" >
+        real_salary = #{record.realSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isUesd != null" >
+        is_uesd = #{record.isUesd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffSalaryTime != null" >
+        staff_salary_time = #{record.staffSalaryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.staffRemark != null" >
+        staff_remark = #{record.staffRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update staff_salary
+    set staff_salary_id = #{record.staffSalaryId,jdbcType=INTEGER},
+      staff_id = #{record.staffId,jdbcType=INTEGER},
+      sta_staff_id = #{record.staStaffId,jdbcType=INTEGER},
+      total_salary = #{record.totalSalary,jdbcType=DOUBLE},
+      deduct_salary = #{record.deductSalary,jdbcType=DOUBLE},
+      real_salary = #{record.realSalary,jdbcType=DOUBLE},
+      is_uesd = #{record.isUesd,jdbcType=VARCHAR},
+      staff_salary_time = #{record.staffSalaryTime,jdbcType=TIMESTAMP},
+      staff_remark = #{record.staffRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.pojo.StaffSalary" >
+    update staff_salary
+    <set >
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="staStaffId != null" >
+        sta_staff_id = #{staStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="totalSalary != null" >
+        total_salary = #{totalSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="deductSalary != null" >
+        deduct_salary = #{deductSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="realSalary != null" >
+        real_salary = #{realSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="isUesd != null" >
+        is_uesd = #{isUesd,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSalaryTime != null" >
+        staff_salary_time = #{staffSalaryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="staffRemark != null" >
+        staff_remark = #{staffRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where staff_salary_id = #{staffSalaryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.pojo.StaffSalary" >
+    update staff_salary
+    set staff_id = #{staffId,jdbcType=INTEGER},
+      sta_staff_id = #{staStaffId,jdbcType=INTEGER},
+      total_salary = #{totalSalary,jdbcType=DOUBLE},
+      deduct_salary = #{deductSalary,jdbcType=DOUBLE},
+      real_salary = #{realSalary,jdbcType=DOUBLE},
+      is_uesd = #{isUesd,jdbcType=VARCHAR},
+      staff_salary_time = #{staffSalaryTime,jdbcType=TIMESTAMP},
+      staff_remark = #{staffRemark,jdbcType=VARCHAR}
+    where staff_salary_id = #{staffSalaryId,jdbcType=INTEGER}
+  </update>
+</mapper>

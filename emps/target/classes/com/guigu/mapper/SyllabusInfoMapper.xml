@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.mapper.SyllabusInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.pojo.SyllabusInfo" >
+    <id column="syllabus_id" property="syllabusId" jdbcType="INTEGER" />
+    <result column="syllabus_yi" property="syllabusYi" jdbcType="VARCHAR" />
+    <result column="syllabus_er" property="syllabusEr" jdbcType="VARCHAR" />
+    <result column="syllabus_san" property="syllabusSan" jdbcType="VARCHAR" />
+    <result column="syllabus_si" property="syllabusSi" jdbcType="VARCHAR" />
+    <result column="syllabus_wu" property="syllabusWu" jdbcType="VARCHAR" />
+    <result column="syllabus_liu" property="syllabusLiu" jdbcType="VARCHAR" />
+    <result column="syllabus_qi" property="syllabusQi" jdbcType="VARCHAR" />
+    <result column="is_uesd" property="isUesd" jdbcType="VARCHAR" />
+    <result column="syllabus_name" property="syllabusName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    syllabus_id, syllabus_yi, syllabus_er, syllabus_san, syllabus_si, syllabus_wu, syllabus_liu, 
+    syllabus_qi, is_uesd, syllabus_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.pojo.SyllabusInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from syllabus_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from syllabus_info
+    where syllabus_id = #{syllabusId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from syllabus_info
+    where syllabus_id = #{syllabusId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.pojo.SyllabusInfoExample" >
+    delete from syllabus_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.pojo.SyllabusInfo" >
+    insert into syllabus_info (syllabus_id, syllabus_yi, syllabus_er, 
+      syllabus_san, syllabus_si, syllabus_wu, 
+      syllabus_liu, syllabus_qi, is_uesd, 
+      syllabus_name)
+    values (#{syllabusId,jdbcType=INTEGER}, #{syllabusYi,jdbcType=VARCHAR}, #{syllabusEr,jdbcType=VARCHAR}, 
+      #{syllabusSan,jdbcType=VARCHAR}, #{syllabusSi,jdbcType=VARCHAR}, #{syllabusWu,jdbcType=VARCHAR}, 
+      #{syllabusLiu,jdbcType=VARCHAR}, #{syllabusQi,jdbcType=VARCHAR}, #{isUesd,jdbcType=VARCHAR}, 
+      #{syllabusName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.pojo.SyllabusInfo" >
+    insert into syllabus_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="syllabusId != null" >
+        syllabus_id,
+      </if>
+      <if test="syllabusYi != null" >
+        syllabus_yi,
+      </if>
+      <if test="syllabusEr != null" >
+        syllabus_er,
+      </if>
+      <if test="syllabusSan != null" >
+        syllabus_san,
+      </if>
+      <if test="syllabusSi != null" >
+        syllabus_si,
+      </if>
+      <if test="syllabusWu != null" >
+        syllabus_wu,
+      </if>
+      <if test="syllabusLiu != null" >
+        syllabus_liu,
+      </if>
+      <if test="syllabusQi != null" >
+        syllabus_qi,
+      </if>
+      <if test="isUesd != null" >
+        is_uesd,
+      </if>
+      <if test="syllabusName != null" >
+        syllabus_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="syllabusId != null" >
+        #{syllabusId,jdbcType=INTEGER},
+      </if>
+      <if test="syllabusYi != null" >
+        #{syllabusYi,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusEr != null" >
+        #{syllabusEr,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusSan != null" >
+        #{syllabusSan,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusSi != null" >
+        #{syllabusSi,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusWu != null" >
+        #{syllabusWu,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusLiu != null" >
+        #{syllabusLiu,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusQi != null" >
+        #{syllabusQi,jdbcType=VARCHAR},
+      </if>
+      <if test="isUesd != null" >
+        #{isUesd,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusName != null" >
+        #{syllabusName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.pojo.SyllabusInfoExample" resultType="java.lang.Integer" >
+    select count(*) from syllabus_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update syllabus_info
+    <set >
+      <if test="record.syllabusId != null" >
+        syllabus_id = #{record.syllabusId,jdbcType=INTEGER},
+      </if>
+      <if test="record.syllabusYi != null" >
+        syllabus_yi = #{record.syllabusYi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syllabusEr != null" >
+        syllabus_er = #{record.syllabusEr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syllabusSan != null" >
+        syllabus_san = #{record.syllabusSan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syllabusSi != null" >
+        syllabus_si = #{record.syllabusSi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syllabusWu != null" >
+        syllabus_wu = #{record.syllabusWu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syllabusLiu != null" >
+        syllabus_liu = #{record.syllabusLiu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syllabusQi != null" >
+        syllabus_qi = #{record.syllabusQi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUesd != null" >
+        is_uesd = #{record.isUesd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syllabusName != null" >
+        syllabus_name = #{record.syllabusName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update syllabus_info
+    set syllabus_id = #{record.syllabusId,jdbcType=INTEGER},
+      syllabus_yi = #{record.syllabusYi,jdbcType=VARCHAR},
+      syllabus_er = #{record.syllabusEr,jdbcType=VARCHAR},
+      syllabus_san = #{record.syllabusSan,jdbcType=VARCHAR},
+      syllabus_si = #{record.syllabusSi,jdbcType=VARCHAR},
+      syllabus_wu = #{record.syllabusWu,jdbcType=VARCHAR},
+      syllabus_liu = #{record.syllabusLiu,jdbcType=VARCHAR},
+      syllabus_qi = #{record.syllabusQi,jdbcType=VARCHAR},
+      is_uesd = #{record.isUesd,jdbcType=VARCHAR},
+      syllabus_name = #{record.syllabusName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.pojo.SyllabusInfo" >
+    update syllabus_info
+    <set >
+      <if test="syllabusYi != null" >
+        syllabus_yi = #{syllabusYi,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusEr != null" >
+        syllabus_er = #{syllabusEr,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusSan != null" >
+        syllabus_san = #{syllabusSan,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusSi != null" >
+        syllabus_si = #{syllabusSi,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusWu != null" >
+        syllabus_wu = #{syllabusWu,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusLiu != null" >
+        syllabus_liu = #{syllabusLiu,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusQi != null" >
+        syllabus_qi = #{syllabusQi,jdbcType=VARCHAR},
+      </if>
+      <if test="isUesd != null" >
+        is_uesd = #{isUesd,jdbcType=VARCHAR},
+      </if>
+      <if test="syllabusName != null" >
+        syllabus_name = #{syllabusName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where syllabus_id = #{syllabusId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.pojo.SyllabusInfo" >
+    update syllabus_info
+    set syllabus_yi = #{syllabusYi,jdbcType=VARCHAR},
+      syllabus_er = #{syllabusEr,jdbcType=VARCHAR},
+      syllabus_san = #{syllabusSan,jdbcType=VARCHAR},
+      syllabus_si = #{syllabusSi,jdbcType=VARCHAR},
+      syllabus_wu = #{syllabusWu,jdbcType=VARCHAR},
+      syllabus_liu = #{syllabusLiu,jdbcType=VARCHAR},
+      syllabus_qi = #{syllabusQi,jdbcType=VARCHAR},
+      is_uesd = #{isUesd,jdbcType=VARCHAR},
+      syllabus_name = #{syllabusName,jdbcType=VARCHAR}
+    where syllabus_id = #{syllabusId,jdbcType=INTEGER}
+  </update>
+</mapper>
