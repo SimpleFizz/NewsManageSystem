@@ -5,7 +5,6 @@
     <id column="anthorty_id" property="anthortyId" jdbcType="INTEGER" />
     <result column="anthorty_pid" property="anthortyPid" jdbcType="INTEGER" />
     <result column="anthorty_name" property="anthortyName" jdbcType="VARCHAR" />
-    <result column="anthorty_desc" property="anthortyDesc" jdbcType="VARCHAR" />
     <result column="anthorty_url" property="anthortyUrl" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -67,13 +66,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    anthorty_id, anthorty_pid, anthorty_name, anthorty_desc, anthorty_url
+    anthorty_id, anthorty_pid, anthorty_name, anthorty_url
   </sql>
   <select id="getByRoleId"  parameterType="int"  resultMap="BaseResultMap">
      SELECT  a.*  FROM anthorty_info  a,role_anthority_info b
 	WHERE a.anthorty_id  = b.anthorty_id  AND b.role_id = #{roleId}
   </select>
-  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.pojo.AnthortyInfoExample" >
     select
     <if test="distinct" >
@@ -106,9 +104,9 @@
   </delete>
   <insert id="insert" parameterType="com.guigu.pojo.AnthortyInfo" >
     insert into anthorty_info (anthorty_id, anthorty_pid, anthorty_name, 
-      anthorty_desc, anthorty_url)
+      anthorty_url)
     values (#{anthortyId,jdbcType=INTEGER}, #{anthortyPid,jdbcType=INTEGER}, #{anthortyName,jdbcType=VARCHAR}, 
-      #{anthortyDesc,jdbcType=VARCHAR}, #{anthortyUrl,jdbcType=VARCHAR})
+      #{anthortyUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.guigu.pojo.AnthortyInfo" >
     insert into anthorty_info
@@ -121,9 +119,6 @@
       </if>
       <if test="anthortyName != null" >
         anthorty_name,
-      </if>
-      <if test="anthortyDesc != null" >
-        anthorty_desc,
       </if>
       <if test="anthortyUrl != null" >
         anthorty_url,
@@ -138,9 +133,6 @@
       </if>
       <if test="anthortyName != null" >
         #{anthortyName,jdbcType=VARCHAR},
-      </if>
-      <if test="anthortyDesc != null" >
-        #{anthortyDesc,jdbcType=VARCHAR},
       </if>
       <if test="anthortyUrl != null" >
         #{anthortyUrl,jdbcType=VARCHAR},
@@ -165,9 +157,6 @@
       <if test="record.anthortyName != null" >
         anthorty_name = #{record.anthortyName,jdbcType=VARCHAR},
       </if>
-      <if test="record.anthortyDesc != null" >
-        anthorty_desc = #{record.anthortyDesc,jdbcType=VARCHAR},
-      </if>
       <if test="record.anthortyUrl != null" >
         anthorty_url = #{record.anthortyUrl,jdbcType=VARCHAR},
       </if>
@@ -181,7 +170,6 @@
     set anthorty_id = #{record.anthortyId,jdbcType=INTEGER},
       anthorty_pid = #{record.anthortyPid,jdbcType=INTEGER},
       anthorty_name = #{record.anthortyName,jdbcType=VARCHAR},
-      anthorty_desc = #{record.anthortyDesc,jdbcType=VARCHAR},
       anthorty_url = #{record.anthortyUrl,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -196,9 +184,6 @@
       <if test="anthortyName != null" >
         anthorty_name = #{anthortyName,jdbcType=VARCHAR},
       </if>
-      <if test="anthortyDesc != null" >
-        anthorty_desc = #{anthortyDesc,jdbcType=VARCHAR},
-      </if>
       <if test="anthortyUrl != null" >
         anthorty_url = #{anthortyUrl,jdbcType=VARCHAR},
       </if>
@@ -209,7 +194,6 @@
     update anthorty_info
     set anthorty_pid = #{anthortyPid,jdbcType=INTEGER},
       anthorty_name = #{anthortyName,jdbcType=VARCHAR},
-      anthorty_desc = #{anthortyDesc,jdbcType=VARCHAR},
       anthorty_url = #{anthortyUrl,jdbcType=VARCHAR}
     where anthorty_id = #{anthortyId,jdbcType=INTEGER}
   </update>

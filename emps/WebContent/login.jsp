@@ -20,9 +20,9 @@
 						<div class="center">
 							<h1>
 								<i class="icon-leaf green"></i> <span class="red">杭州归谷</span> <span
-									class="white">教务管理</span>
+									class="white">校园新闻发布与管理系统</span>
 							</h1>
-							<h4 class="blue">宿老师</h4>
+							<h4 class="blue">欢迎您</h4>
 						</div>
 						<div class="space-6"></div>
 						<div class="position-relative">

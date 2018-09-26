@@ -11,24 +11,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.guigu.pojo.AnthortyDTO;
 import com.guigu.pojo.AnthortyInfo;
-import com.guigu.pojo.StaffInfo;
+
+import com.guigu.pojo.UserInfo;
 import com.guigu.service.AnthortyService;
-import com.guigu.service.StaffInfoService;
+
+import com.guigu.service.UserInfoService;
 
 @RequestMapping("/LogController")
 @Controller
 public class LogController {
 	
 	@Resource
-	private StaffInfoService  staffInfoService;
+	private UserInfoService  userInfoService;
 	@Resource
 	private AnthortyService  anthortyService;
 	
 	@RequestMapping("/logIn.action")
 	public String logIn(String userName,String passWord,HttpServletRequest  request) throws Exception {
 		
-		StaffInfo  staffInfo = staffInfoService.logIn(userName,passWord);
-        List<AnthortyInfo>  anthlist = anthortyService.getAnthortyInfoByRoleId(staffInfo.getRoleId());
+		UserInfo  userInfo = userInfoService.logIn(userName,passWord);
+		
+        List<AnthortyInfo>  anthlist = anthortyService.getAnthortyInfoByRoleId(userInfo.getRoleId());
+        
      // 构建菜单（一级和二级）
 		List<AnthortyDTO> dtolist = new ArrayList<AnthortyDTO>();
 
@@ -46,7 +50,7 @@ public class LogController {
 				dtolist.add(dto);
 			}
 		}
-		request.getSession().setAttribute("staffInfo", staffInfo);
+		request.getSession().setAttribute("userInfo", userInfo);
 		request.setAttribute("dtoList", dtolist);
 
 		return "index";

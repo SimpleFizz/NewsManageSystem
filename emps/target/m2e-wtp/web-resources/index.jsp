@@ -29,11 +29,9 @@
 		<div class="navbar-container" id="navbar-container">
 			<div class="navbar-header pull-left">
 				<a href="#" class="navbar-brand"> <small> <i
-						class="icon-leaf"></i> xxx学校教务管理系统
+						class="icon-leaf"></i> 校园新闻发布与管理系统
 				</small>				</a>
 				<!-- /.brand -->
-				<h3>登陆用户：${sessionScope.staffInfo.getStaffName()}</h3> 
-				
 			</div>
 			<!-- /.navbar-header -->
 
@@ -41,15 +39,15 @@
 				<ul class="nav ace-nav">
 					<li class="green"><a data-toggle="dropdown"
 						class="dropdown-toggle" href="#"> <i
-							class="icon-envelope icon-animated-vertical"></i> <span
+							class="icon-envelope icon-animated-vertical"></i> <spanm
 							
-							class="badge badge-success">5</span>
+							class="badge badge-success">0</span>
 					</a>
 
 						<ul
 							class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
 							<li class="dropdown-header"><i class="icon-envelope-alt"></i>
-								5条消息</li>
+								0条消息</li>
 						</ul></li>
 
 					<li class="light-blue"><a data-toggle="dropdown" href="#"

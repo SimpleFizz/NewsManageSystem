@@ -4,8 +4,6 @@
   <resultMap id="BaseResultMap" type="com.guigu.pojo.RoleInfo" >
     <id column="role_id" property="roleId" jdbcType="INTEGER" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
-    <result column="role_desc" property="roleDesc" jdbcType="VARCHAR" />
-    <result column="role_state" property="roleState" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +64,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    role_id, role_name, role_desc, role_state
+    role_id, role_name
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.pojo.RoleInfoExample" >
     select
@@ -99,10 +97,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.guigu.pojo.RoleInfo" >
-    insert into role_info (role_id, role_name, role_desc, 
-      role_state)
-    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, 
-      #{roleState,jdbcType=VARCHAR})
+    insert into role_info (role_id, role_name)
+    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.guigu.pojo.RoleInfo" >
     insert into role_info
@@ -113,12 +109,6 @@
       <if test="roleName != null" >
         role_name,
       </if>
-      <if test="roleDesc != null" >
-        role_desc,
-      </if>
-      <if test="roleState != null" >
-        role_state,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="roleId != null" >
@@ -126,12 +116,6 @@
       </if>
       <if test="roleName != null" >
         #{roleName,jdbcType=VARCHAR},
-      </if>
-      <if test="roleDesc != null" >
-        #{roleDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="roleState != null" >
-        #{roleState,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -150,12 +134,6 @@
       <if test="record.roleName != null" >
         role_name = #{record.roleName,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleDesc != null" >
-        role_desc = #{record.roleDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="record.roleState != null" >
-        role_state = #{record.roleState,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -164,9 +142,7 @@
   <update id="updateByExample" parameterType="map" >
     update role_info
     set role_id = #{record.roleId,jdbcType=INTEGER},
-      role_name = #{record.roleName,jdbcType=VARCHAR},
-      role_desc = #{record.roleDesc,jdbcType=VARCHAR},
-      role_state = #{record.roleState,jdbcType=VARCHAR}
+      role_name = #{record.roleName,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -177,20 +153,12 @@
       <if test="roleName != null" >
         role_name = #{roleName,jdbcType=VARCHAR},
       </if>
-      <if test="roleDesc != null" >
-        role_desc = #{roleDesc,jdbcType=VARCHAR},
-      </if>
-      <if test="roleState != null" >
-        role_state = #{roleState,jdbcType=VARCHAR},
-      </if>
     </set>
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.guigu.pojo.RoleInfo" >
     update role_info
-    set role_name = #{roleName,jdbcType=VARCHAR},
-      role_desc = #{roleDesc,jdbcType=VARCHAR},
-      role_state = #{roleState,jdbcType=VARCHAR}
+    set role_name = #{roleName,jdbcType=VARCHAR}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
 </mapper>
